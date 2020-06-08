@@ -1,32 +1,29 @@
-exports.handler = function(event, context, callback) {
-  
-    if (process.env.TIMEZONE && !process.env.TIMEZONE == null) { 
-      var selectedTZ = process.env.TIMEZONE;
-      console.log("Using the " , selectedTZ , " timeZone.")
+exports.handler = function (event, context, callback) {
+    if (process.env.TIMEZONE && !process.env.TIMEZONE == null) {
+        var selectedTZ = process.env.TIMEZONE;
+        console.log("Using the ", selectedTZ, " timeZone.")
     } else {
-      var selectedTZ = "UTC";
-      console.log("TIMEZONE environment variable not set.  Using UTC timeZone.")
+        var selectedTZ = "UTC";
+        console.log("TIMEZONE environment variable not set.  Using UTC timeZone.")
     }
-  
+
     // Current day & month - DD/MM
-    let callTime = new Date(parseInt(new Date().getTime())).toLocaleString("en-US", {month: "2-digit", day: "2-digit", timeZone: selectedTZ}).toString();
-  
-    console.log("Today(MM/DD): " , callTime);
-      
-      Object.keys(process.env).forEach(function(key) { 
-        if(key.match(/^Holiday/g)) {
-            if(process.env[key] == callTime) {
-              console.log("found a match");
-              callback(null, {CLOSED: "Yes"});
+    let callTime = new Date(parseInt(new Date().getTime())).toLocaleString("en-US", { month: "2-digit", day: "2-digit", timeZone: selectedTZ }).toString();
+
+    console.log("Today(MM/DD): ", callTime);
+
+    Object.keys(process.env).forEach(function (key) {
+        if (key.match(/^Holiday/g)) {
+            if (process.env[key] == callTime) {
+                console.log("found a match");
+                callback(null, { CLOSED: "Yes" });
             }
         };
-        
-      })
-      
-      callback(null, {CLOSED: "No"});
-    
-  };
-  
+
+    })
+    callback(null, { CLOSED: "No" });
+};
+
   // Possible Timezone Options
   // Africa/Abidjan
   // Africa/Accra
