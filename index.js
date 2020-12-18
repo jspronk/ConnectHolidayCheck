@@ -1,5 +1,5 @@
 exports.handler = function (event, context, callback) {
-    if (process.env.TIMEZONE && !process.env.TIMEZONE == null) {
+    if (process.env.TIMEZONE) {
         var selectedTZ = process.env.TIMEZONE;
         console.log("Using the ", selectedTZ, " timeZone.")
     } else {
